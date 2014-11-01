@@ -1,0 +1,19 @@
+{% extends "base.html"%}
+
+{% block content %}
+		<h1>Blog</h1>
+		<hr>
+		<hr>
+		{% for post in blogs %}
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{post.title}}</h3>
+				</div>
+				<div class="panel-body">{{post.blog}}</div>
+			</div>
+			<hr>
+		{% endfor %}
+		<div class="well well-sm" style="position: relative; bottom: 20px; left: 86%; width: 200px">Queried {{time}} seconds ago</div>
+	<body>
+</html>
+{% endblock %}

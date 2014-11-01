@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+ {% block content %} 
+<html>
+	<head>
+		<title> College Carpool</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+		<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
+		
+		<style>
+			body {
+				color: darkred;
+				size: 16px;
+				text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+			} 
+			#map-canvas {
+ 				 height: 100%;
+ 				 position: absolute; 
+ 				 top: 0; 
+ 				 bottom: -200px; 
+ 				 left: 0; 
+ 				 right: 0; 
+ 				 z-index: -1;
+			}
+			#title {
+				text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+				letter-spacing: 2px;
+			}
+		</style>
+	</head>
+ 
+
+ <div id="map-canvas"></div>
+	<body>
+    <h1 align="center" id="title"><font color="8A2BE2" >College Carpool</font></h1>
+	<form class="form-horizontal" align="center" method="post">
+		<div class="form-group" align="center">
+			<label class="col-sm-4 control-label" > Username:</label>
+			<input type="text" size="40" class="col-sm-4" placeholder="Username" name= "username" value={{username}} >
+		</div>
+	
+		
+		<div class="form-group">
+			<label class="col-sm-4 control-label" > Password:</label>
+			<input class="col-sm-4" placeholder="Password" name = "password" type = "password" >
+		</div>
+		<div style = "color:red">{{error}}</div>
+	
+		<div class="form-group">
+			<button type="submit" class="btn btn-success">Log In</button>
+			<button type="submit" class="btn btn-success" name="guestLogin">Log In as Guest</button>
+		</div>
+	</form>
+
+	<div align="center">	
+		<button class = "btn btn-primary" align="center" onclick="location.href='/signup'">
+	    	 Signup
+	 	</button>
+	</div>
+	
+	<div align="center" style="margin-top: 10px;">
+		<button class = "btn btn-primary" align="center" onclick="location.href='/recover'">
+    		Recover Account
+ 		</button>
+ 	</div>
+
+	</body>
+
+<script type="text/javascript" src="/static/js/jquery-1.11.1.min.js"></script>
+<script>
+initialize = function() {
+  var mapOptions = {
+    zoom:4,
+    center:new google.maps.LatLng(39.28608216613856, -97.09721937500001),
+  }
+    
+  var map= new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  
+  function calcRoute(start,end) {
+  
+    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new google.maps.DirectionsRenderer(); 
+      directionsDisplay.setMap(map);
+  
+      var request = {
+        origin:start,
+        destination:end,
+        travelMode: google.maps.TravelMode.DRIVING
+    };
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      }
+    });
+  }
+  
+  {%for ride in rides %}
+  	calcRoute("{{ride.start}}","{{ride.destination}}");
+  {% endfor %}
+      
+};
+
+$(document).ready(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize';
+  document.body.appendChild(script);
+});
+</script>
+</html>
+ 
+
+{% endblock %}
