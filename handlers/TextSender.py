@@ -1,3 +1,4 @@
+from twilio.rest import TwilioRestClient
 from google.appengine.ext import db
 from Handler import Handler 
 from database import Text
@@ -13,5 +14,5 @@ class TextSender(Handler):
 	def post(self):
 		client = TwilioRestClient(account_sid, auth_token)
 		body = "Do you support {OUR IDEA}? Respond yes or no."
-		recipient = 9179230739
+		recipient = self.request.get("number") 
 		message = client.sms.messages.create(body=body, to=recipient, from_=from_number)
