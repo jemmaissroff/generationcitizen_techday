@@ -1,3 +1,3 @@
-account_sid = "ACe26597f3042999e5917429956d781b52"
-auth_token  = "44235694ae0588a28399b07d81904920"
-from_number = "+13477676959"
+account_sid = "AC3193116fe4c2b65816b1f2f7d4d83f34"
+auth_token  = "00ce49be0214048a8535eecab478cbec"
+from_number = "9292369783"
