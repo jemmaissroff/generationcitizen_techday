@@ -1,12 +1,12 @@
 from google.appengine.ext import db
-from Handler import Handler 
+from Handler import Handler
 from database import Text
-from account import * 
+from account import *
 
 class TextSender(Handler):
 	def render_front(self):
 		self.render("textsender.html")
-		
+
 	def get(self):
 		self.render_front()
 
