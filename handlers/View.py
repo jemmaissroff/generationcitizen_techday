@@ -8,7 +8,7 @@ class View(Handler):
 
 	def get(self):
 		sent = len(list(db.GqlQuery("SELECT * from Text")))
-		yes = len(list(db.GqlQuery("SELECT * from Text WHERE Response='Y'")))
-		no = len(list(db.GqlQuery("SELECT * from Text WHERE Response='N'")))
+		yes = len(list(db.GqlQuery("SELECT * from Text WHERE response='Y'")))
+		no = len(list(db.GqlQuery("SELECT * from Text WHERE response='N'")))
 		no_responses = sent - yes - no
 		self.render_front(sent, yes, no)

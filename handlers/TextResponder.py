@@ -4,18 +4,14 @@ from Handler import Handler
 from database import Text
 from account import *
 
-class TextSender(Handler):
-	def render_front(self):
-		self.render("textresponder.html")
-
+class TextResponder(Handler):
 	def get(self):
 		body = self.request.get('Body')
-		sender = self.request.get('From')
-		txt = db.GqlQuery("SELECT * FROM Text Where sender = :1", sender)
-		if(body.lower() == "yes"):
-			txt.response = yes
-		elif(body.lower() == "no"):
-			txt.response
+		sender = self.request.get('From')[2:]
+		txt = db.GqlQuery("SELECT * FROM Text WHERE phone_number='" + sender + "'").get()
+		if(body.lower() == 'yes'):
+			txt.response = 'Y'
+		elif(body.lower() == 'no'):
+			txt.response = 'N'
+		txt.put()
 
-	def post(self):
-		pass

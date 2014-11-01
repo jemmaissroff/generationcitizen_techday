@@ -14,5 +14,8 @@ class TextSender(Handler):
 	def post(self):
 		client = TwilioRestClient(account_sid, auth_token)
 		body = "Do you support {OUR IDEA}? Respond yes or no."
-		recipient = self.request.get("number") 
+		recipient = self.request.get("number")
 		message = client.sms.messages.create(body=body, to=recipient, from_=from_number)
+		txt = Text(phone_number=recipient, response=None, sent_message = body)
+		txt.put()
+		self.redirect("/")
