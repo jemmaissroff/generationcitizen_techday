@@ -7,8 +7,8 @@ class View(Handler):
 		self.render("metrics.html", sent=sent, yes=yes, no=no)
 
 	def get(self):
-		sent = len(list(Text.gql("SELECT * from Text")))
-		yes = len(list(Text.gql("SELECT * from Text WHERE Response=Y")))
-		no = len(list(Text.gql("SELECT * from Text WHERE Response=N")))
+		sent = len(list(db.GqlQuery("SELECT * from Text")))
+		yes = len(list(db.GqlQuery("SELECT * from Text WHERE Response='Y'")))
+		no = len(list(db.GqlQuery("SELECT * from Text WHERE Response='N'")))
 		no_responses = sent - yes - no
 		self.render_front(sent, yes, no)

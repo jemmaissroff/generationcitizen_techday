@@ -1,4 +1,4 @@
-application: college-carpool
+application: college-main
 version: 2
 runtime: python27
 api_version: 1
@@ -17,27 +17,27 @@ handlers:
   static_dir: static
 
 - url: /login
-  script: carpool.application
+  script: main.application
   secure: always
 
 - url: /signup
-  script: carpool.application
+  script: main.application
   secure: always
 
 - url: /verify
-  script: carpool.application
+  script: main.application
   secure: always
 
 - url: /venmo-webhook
-  script: carpool.application
+  script: main.application
   secure: always
 
 - url: /recover
-  script: carpool.application
+  script: main.application
   secure: always
 
 - url: /.*
-  script: carpool.application
+  script: main.application
 
 libraries:
 - name: jinja2
